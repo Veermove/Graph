@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/home/veermove/.dotnet/store/|arch|/|tfm|",
+      "/home/veermove/.nuget/packages"
+    ]
+  }
+}

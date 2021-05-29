@@ -1,0 +1,16 @@
+/mnt/gramofon/Csharp/test1/obj/Debug/net5.0/test1.csprojAssemblyReference.cache
+/mnt/gramofon/Csharp/test1/obj/Debug/net5.0/test1.GeneratedMSBuildEditorConfig.editorconfig
+/mnt/gramofon/Csharp/test1/obj/Debug/net5.0/test1.AssemblyInfoInputs.cache
+/mnt/gramofon/Csharp/test1/obj/Debug/net5.0/test1.AssemblyInfo.cs
+/mnt/gramofon/Csharp/test1/obj/Debug/net5.0/test1.csproj.CoreCompileInputs.cache
+/mnt/gramofon/Csharp/test1/bin/Debug/net5.0/test1
+/mnt/gramofon/Csharp/test1/bin/Debug/net5.0/test1.deps.json
+/mnt/gramofon/Csharp/test1/bin/Debug/net5.0/test1.runtimeconfig.json
+/mnt/gramofon/Csharp/test1/bin/Debug/net5.0/test1.runtimeconfig.dev.json
+/mnt/gramofon/Csharp/test1/bin/Debug/net5.0/test1.dll
+/mnt/gramofon/Csharp/test1/bin/Debug/net5.0/ref/test1.dll
+/mnt/gramofon/Csharp/test1/bin/Debug/net5.0/test1.pdb
+/mnt/gramofon/Csharp/test1/obj/Debug/net5.0/test1.dll
+/mnt/gramofon/Csharp/test1/obj/Debug/net5.0/ref/test1.dll
+/mnt/gramofon/Csharp/test1/obj/Debug/net5.0/test1.pdb
+/mnt/gramofon/Csharp/test1/obj/Debug/net5.0/test1.genruntimeconfig.cache
