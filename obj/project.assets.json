@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/mnt/gramofon/Csharp/test1/test1.csproj",
+      "projectUniqueName": "/mnt/gramofon/Csharp/Graph/test1.csproj",
       "projectName": "test1",
-      "projectPath": "/mnt/gramofon/Csharp/test1/test1.csproj",
+      "projectPath": "/mnt/gramofon/Csharp/Graph/test1.csproj",
       "packagesPath": "/home/veermove/.nuget/packages/",
-      "outputPath": "/mnt/gramofon/Csharp/test1/obj/",
+      "outputPath": "/mnt/gramofon/Csharp/Graph/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/veermove/.nuget/NuGet/NuGet.Config"

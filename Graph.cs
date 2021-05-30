@@ -37,7 +37,6 @@ class Matrix {
     public Matrix()
     {
         access = new int[0, 0];
-        // access[0, 0] = 0;
     }
 
     public void add(int x)
@@ -115,7 +114,7 @@ public class Graph <T> where T : IComparable
     EnumeratedLinkedList<Node<T>> storage;
 
     Matrix access;
-    int vertices = 0;
+    private int vertices = 0;
     int edges = 0;
 
     public Graph()
@@ -178,6 +177,9 @@ public class Graph <T> where T : IComparable
             a = storage.get(0);
         } catch (InvalidOperationException e)
         {
+            if (e == null)
+            {}
+
             return null;
         }
         return a;
