@@ -20,7 +20,25 @@ namespace test1
             atest.addEdge(3, 4, 3);
             atest.addEdge(0, 4, 14);
             atest.addEdge(1, 3, 2);
-            atest.KruskalsMST().listAllEdges();
+            // atest.KruskalsMST().listAllEdges();
+            // atest.add(1);
+            // atest.add(2);
+            // atest.add(3);
+            // atest.addEdge(0, 1, 1);
+            // atest.addEdge(0, 2, 13);
+            // atest.addEdge(1, 2, 2);
+            int[] temp = atest.DjikstrasSD(0);
+            NodeL<int>[] ze = atest.DjikstrasSP(0);
+            for(int i = 0; i < temp.GetLength(0); i++)
+            {
+                Console.Write(ze[i].getValue() + " ");
+            }
+
+            // EnumeratedLinkedList<NodeL<int>> testVal = atest.findShortestPath(0, 3);
+            // foreach(NodeL<int> sigv in testVal)
+            // {
+            //     Console.Write(sigv.getValue() + " ");
+            // }
             // Graph<int> ktest = new Graph<int>();
             // ktest.add(7);
             // ktest.add(3);

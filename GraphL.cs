@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 public class GraphL<T> where T : IComparable
 {
     EnumeratedLinkedList<NodeL<T>> storage;
     EnumeratedLinkedList<Edge<T>> edgeList;
     private int vertices;
-
+    private int[] distances;
     public GraphL()
     {
         storage = new EnumeratedLinkedList<NodeL<T>>();
@@ -21,6 +22,155 @@ public class GraphL<T> where T : IComparable
     public void addEdge (int x, int y, int edgeValue)
     {
         edgeList.AddLast(new Edge<T>(storage.get(x), storage.get(y), edgeValue));
+    }
+
+    public int getIndexOf(NodeL<T> k)
+    {
+        int i = 0;
+        foreach(NodeL<T> val in storage)
+        {
+            if (k.Equals(val))
+            {
+                return i;
+            }
+            i++;
+        }
+        throw new NullReferenceException();
+    }
+
+    private EnumeratedLinkedList<Edge<T>> getNearEdges(NodeDist<T> val)
+    {
+        EnumeratedLinkedList<Edge<T>> retVal = new EnumeratedLinkedList<Edge<T>>();
+        foreach(Edge<T> k in edgeList)
+        {
+            if (k.getStart().Equals(val.getNode()) || k.getFinish().Equals(val.getNode()))
+            {
+                retVal.AddLast(k);
+            }
+        }
+        return retVal;
+    }
+
+    private const int infty = Int32.MaxValue;
+    public int[] DjikstrasSD(int StartingNode)
+    {
+        int[] distance = new int[vertices];
+        Boolean[] vis = new Boolean[vertices];
+        for (int i = 0; i < distance.GetLength(0); i++)
+        {
+            distance[i] = infty;
+            vis[i] = false;
+        }
+        distance[StartingNode] = 0;
+        QueueList<NodeDist<T>> priorQueue = new QueueList<NodeDist<T>>();
+        EnumeratedLinkedList<NodeDist<T>> distStorage = new EnumeratedLinkedList<NodeDist<T>>();
+        int index = 0;
+        foreach(NodeL<T> val in storage)
+        {
+            distStorage.AddLast(new NodeDist<T>(storage.get(index), distance[index]));
+            index++;
+        }
+
+        priorQueue.AddLast(distStorage.get(StartingNode));
+        while(priorQueue.Count != 0)
+        {
+            NodeDist<T> temp = priorQueue.getMin();
+            priorQueue.removeMin();
+            vis[getIndexOf(temp.getNode())] = true;
+            EnumeratedLinkedList<Edge<T>> neighb = getNearEdges(temp);
+            // loop over all the neighbours of current node and skip visited
+            foreach(Edge<T> k in neighb)
+            {
+                NodeL<T> tempNode = k.getStart();
+                if (tempNode.Equals(temp.getNode()))
+                {
+                    tempNode = k.getFinish();
+                }
+                if (vis[getIndexOf(tempNode)])
+                {
+                    continue;
+                }
+                int newDist = distance[getIndexOf(temp.getNode())] + k.getWeight();
+                if (newDist < distance[getIndexOf(tempNode)])
+                {
+                    distance[getIndexOf(tempNode)] = newDist;
+                    priorQueue.AddLast(new NodeDist<T>(tempNode, newDist));
+                }
+            }
+        }
+        return distance;
+    }
+
+    public NodeL<T>[] DjikstrasSP(int StartingNode)
+    {
+        int[] distance = new int[vertices];
+        Boolean[] vis = new Boolean[vertices];
+        NodeL<T>[] prev = new NodeL<T>[vertices];
+        for (int i = 0; i < distance.GetLength(0); i++)
+        {
+            distance[i] = infty;
+            vis[i] = false;
+            // prev = null;
+        }
+        distance[StartingNode] = 0;
+        QueueList<NodeDist<T>> priorQueue = new QueueList<NodeDist<T>>();
+        EnumeratedLinkedList<NodeDist<T>> distStorage = new EnumeratedLinkedList<NodeDist<T>>();
+        int index = 0;
+        foreach(NodeL<T> val in storage)
+        {
+            distStorage.AddLast(new NodeDist<T>(storage.get(index), distance[index]));
+            index++;
+        }
+
+        priorQueue.AddLast(distStorage.get(StartingNode));
+        while(priorQueue.Count != 0)
+        {
+            NodeDist<T> temp = priorQueue.getMin();
+            priorQueue.removeMin();
+            vis[getIndexOf(temp.getNode())] = true;
+            EnumeratedLinkedList<Edge<T>> neighb = getNearEdges(temp);
+            if (distance[getIndexOf(temp.getNode())] < temp.getDist())
+            {
+                continue;
+            }
+            // loop over all the neighbours of current node and skip visited
+            foreach(Edge<T> k in neighb)
+            {
+                NodeL<T> tempNode = k.getStart();
+                if (tempNode.Equals(temp.getNode()))
+                {
+                    tempNode = k.getFinish();
+                }
+                if (vis[getIndexOf(tempNode)])
+                {
+                    continue;
+                }
+                int newDist = distance[getIndexOf(temp.getNode())] + k.getWeight();
+                if (newDist < distance[getIndexOf(tempNode)])
+                {
+                    prev[getIndexOf(tempNode)] = temp.getNode();
+                    // prev[getIndexOf(temp.getNode())] = tempNode;
+                    distance[getIndexOf(tempNode)] = newDist;
+                    priorQueue.AddLast(new NodeDist<T>(tempNode, newDist));
+                }
+            }
+        }
+        distances = null;
+        distances = distance;
+        return prev;
+    }
+
+
+    public EnumeratedLinkedList<NodeL<T>> findShortestPath(int StartingNode, int EndingNode)
+    {
+        NodeL<T>[] prev = DjikstrasSP(StartingNode);
+        EnumeratedLinkedList<NodeL<T>> path = new EnumeratedLinkedList<NodeL<T>>();
+        if (distances[EndingNode] == infty)
+        {
+            return null;
+        }
+
+        return path;
     }
 
     public Group<T> KruskalsMST()
@@ -181,6 +331,37 @@ public class Group<T> where T : IComparable
         }
     }
 
+}
+
+class NodeDist<T> : IComparable where T : IComparable
+{
+    NodeL<T> nod;
+    int distFromStart;
+
+    public NodeDist(NodeL<T> nod, int distFromStart)
+    {
+        this.nod = nod;
+        this.distFromStart = distFromStart;
+    }
+
+    public int CompareTo(Object other)
+    {
+        var compared = other as NodeDist<T>;
+        return this.distFromStart - compared.distFromStart;
+    }
+    public NodeL<T> getNode()
+    {
+        return nod;
+    }
+    public int getDist()
+    {
+        return distFromStart;
+    }
+
+    public void setDist(int dist)
+    {
+        distFromStart = dist;
+    }
 }
 
 public class NodeL<T> where T : IComparable
